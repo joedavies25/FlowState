@@ -11,7 +11,11 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Map" component={Map} />
-        <Stack.Screen name="Flow" component={Flow} />
+        <Stack.Screen
+          name="Flow"
+          component={Flow}
+          options={({ route }) => ({ title: route.params.title })}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

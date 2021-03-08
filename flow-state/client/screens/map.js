@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import mapStyle from '../mapStyle';
+import apiService from '../apiservice';
 import { View, StatusBar, StyleSheet, Dimensions } from 'react-native';
 
 const Map = ({ navigation }) => {
   const [stations, setStations] = useState([]);
 
-  const fetchStations = async () => {
-    const res = await fetch('http://192.168.1.82:3001/stations');
-    const result = await res.json();
-    setStations(result);
-  };
-
   useEffect(() => {
-    fetchStations();
+    apiService.getStations(setStations);
   }, []);
 
   return (
@@ -41,9 +36,11 @@ const Map = ({ navigation }) => {
                 latitude: station.latitude,
                 longitude: station.longitude,
               }}
-              title={station.title}
               onPress={() => {
-                navigation.navigate('Flow', { measures: station.measures });
+                navigation.navigate('Flow', {
+                  measures: station.measures,
+                  title: 'flow state',
+                });
               }}
             />
           );
