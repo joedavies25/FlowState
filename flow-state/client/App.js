@@ -1,22 +1,50 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Map from './screens/map';
-import Flow from './screens/flow';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Location from './stacks/locationStack';
+import Saved from './stacks/savedStack';
+import { AntDesign } from '@expo/vector-icons';
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Map" component={Map} />
-        <Stack.Screen
-          name="Flow"
-          component={Flow}
-          options={({ route }) => ({ title: route.params.title })}
+      <Tab.Navigator
+        tabBarOptions={{
+          activeTintColor: '#12486f',
+          inactiveTintColor: 'grey',
+          style: { height: '10%' },
+          tabStyle: {
+            borderTopColor: '#12486f',
+            borderTopWidth: 2,
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+          labelStyle: {
+            paddingBottom: 5,
+          },
+        }}
+      >
+        <Tab.Screen
+          name="Loaction"
+          component={Location}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <AntDesign name="enviroment" size={30} color={color} />
+            ),
+          }}
         />
-      </Stack.Navigator>
+        <Tab.Screen
+          name="Saved"
+          component={Saved}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <AntDesign name="bars" size={30} color={color} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 };

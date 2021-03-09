@@ -1,24 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import MapView, { Marker } from 'react-native-maps';
+import { Marker } from 'react-native-maps';
+import MapView from 'react-native-map-clustering';
 import mapStyle from '../mapStyle';
 import apiService from '../apiservice';
+import SplashScreen from '../animations/waterLoader';
 import { View, StatusBar, StyleSheet, Dimensions } from 'react-native';
 
 const Map = ({ navigation }) => {
   const [stations, setStations] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     apiService.getStations(setStations);
+    setTimeout(() => {
+      setIsLoaded(true);
+    }, 6000);
   }, []);
 
-  return (
+  return isLoaded ? (
     <View style={styles.container}>
       <StatusBar hidden />
       <MapView
         style={styles.map}
         provider="google"
         customMapStyle={mapStyle}
-        region={{
+        clusterColor="#12486f"
+        initialRegion={{
           latitude: 53.483959,
           longitude: -2.244644,
           latitudeDelta: 2.7027027027,
@@ -39,7 +46,6 @@ const Map = ({ navigation }) => {
               onPress={() => {
                 navigation.navigate('Flow', {
                   measures: station.measures,
-                  title: 'flow state',
                 });
               }}
             />
@@ -47,6 +53,8 @@ const Map = ({ navigation }) => {
         })}
       </MapView>
     </View>
+  ) : (
+    <SplashScreen />
   );
 };
 

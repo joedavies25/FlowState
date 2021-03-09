@@ -1,10 +1,37 @@
-const BASE_URL = 'http://192.168.0.195:3001/stations';
+const BASE_URL = 'http://10.10.22.34:3001';
 
 exports.getStations = async (hookFunc) => {
-  const result = await fetch(BASE_URL)
+  const result = await fetch(BASE_URL + '/stations')
     .then((res) => res.json())
     .catch((err) => console.log(err));
   hookFunc(result);
+};
+
+exports.getSaved = async (hookFunc) => {
+  const result = await fetch(BASE_URL + '/saved')
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
+  hookFunc(result);
+};
+
+exports.addSaved = async (measure) => {
+  return fetch(BASE_URL + '/saved', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(measure),
+  })
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
+};
+
+exports.removeSaved = async (id) => {
+  return fetch(BASE_URL + '/removeSaved', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(id),
+  })
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 };
 
 exports.getMeasureInfo = async (id) => {
