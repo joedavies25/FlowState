@@ -1,5 +1,7 @@
 const fetch = require('node-fetch');
 const Schemas = require('./model/stationSchema');
+const Station = require('./model/stationSchema');
+const Measure = require('./model/measureSchema');
 const connection = require('./model/index');
 
 const scraper = async () => {
@@ -8,20 +10,20 @@ const scraper = async () => {
   ).then((res) => res.json());
 
   result.items.map(async (station, idx) => {
-    let newStation = new Schemas.Station({
+    let newStation = new Station({ 
       latitude: station.lat,
       longitude: station.long,
       measures: [],
     });
     station.measures.forEach((measure) => {
-      let newMeasure = new Schemas.Measure({
+      let newMeasure = new Measure({
         stationID: measure['@id'],
         qualifier: measure.qualifier,
         unitName: measure.unitName,
       });
       newStation.measures.push(newMeasure);
     });
-    await Schemas.Station.create(newStation);
+    await Station.create(newStation);
   });
 };
 
