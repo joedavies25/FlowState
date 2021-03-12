@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import { model, Schema } from 'mongoose';
+import { IStationDocument } from '../interfaces/station.interface';
 
 const StationSchema = new Schema({
   latitude: Number,
@@ -7,6 +7,6 @@ const StationSchema = new Schema({
   measures: [],
 });
 
-module.exports = mongoose.model('Station', StationSchema);
+export default model<IStationDocument>('Station', StationSchema);
 // exports.Station = mongoose.model('Station', StationSchema);
 // exports.Measure = mongoose.model('Measure', MeasureSchema);
