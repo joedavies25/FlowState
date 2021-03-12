@@ -1,5 +1,6 @@
-// const BASE_URL = 'http://10.10.22.27:3001';
-const { EXPO_BASE_URL } = process.env;
+
+const BASE_URL = process.env.EXPO_BASE_URL;
+
 
 exports.getStations = async (hookFunc) => {
   const result = await fetch(EXPO_BASE_URL + '/stations')
