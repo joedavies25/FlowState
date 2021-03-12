@@ -1,4 +1,6 @@
-const BASE_URL = 'http://10.10.22.34:3001';
+// const BASE_URL = 'http://10.10.22.29:3001';
+// require('dotenv').config();
+const BASE_URL = process.env.EXPO_BASE_URL;
 
 exports.getStations = async (hookFunc) => {
   const result = await fetch(BASE_URL + '/stations')
