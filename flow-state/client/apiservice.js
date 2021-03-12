@@ -1,23 +1,23 @@
-// const BASE_URL = 'http://10.10.22.29:3001';
-// require('dotenv').config();
+
 const BASE_URL = process.env.EXPO_BASE_URL;
 
+
 exports.getStations = async (hookFunc) => {
-  const result = await fetch(BASE_URL + '/stations')
+  const result = await fetch(EXPO_BASE_URL + '/stations')
     .then((res) => res.json())
     .catch((err) => console.log(err));
   hookFunc(result);
 };
 
 exports.getSaved = async (hookFunc) => {
-  const result = await fetch(BASE_URL + '/saved')
+  const result = await fetch(EXPO_BASE_URL + '/saved')
     .then((res) => res.json())
     .catch((err) => console.log(err));
   hookFunc(result);
 };
 
 exports.addSaved = async (measure) => {
-  return fetch(BASE_URL + '/saved', {
+  return fetch(EXPO_BASE_URL + '/saved', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(measure),
@@ -27,7 +27,7 @@ exports.addSaved = async (measure) => {
 };
 
 exports.removeSaved = async (id) => {
-  return fetch(BASE_URL + '/removeSaved', {
+  return fetch(EXPO_BASE_URL + '/removeSaved', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(id),
