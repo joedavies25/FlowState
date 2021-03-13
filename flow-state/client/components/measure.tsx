@@ -8,57 +8,69 @@ interface MeasureProps {
   stationID: string;
   qualifier: string;
   unitName: string;
-  saved: boolean
+  saved: boolean;
+  handleClick: Function;
 }
 
-const Measure: React.FC<MeasureProps> = ({ stationID, qualifier, unitName, saved }) => {
+const Measure: React.FC<MeasureProps> = ({
+  stationID,
+  qualifier,
+  unitName,
+  saved,
+  handleClick,
+}) => {
   const [waterLevel, setWaterLevel] = useState<number>(0);
   const [measureInfo, setMeasureInfo] = useState<string>('');
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [savedState, setSavedState] = useState<boolean>(saved);
 
+  useEffect(() => {
+    setSavedState(saved);
+  }, [saved]);
+
   const measureID = stationID.slice(60);
   const id = measureID.split('-')[0];
 
   const fetchMeasureInfo = async () => {
-    apiService.getMeasureInfo(stationID)
-      .then((res) => {
-        setMeasureInfo(res);
-      })
+    apiService.getMeasureInfo(stationID).then((res) => {
+      setMeasureInfo(res);
+    });
   };
 
   const getWaterLevel = async () => {
     let newWaterLevel: number;
     if (unitName !== 'm3/s') {
-      apiService.getLastestReading(measureID)
-        .then((res) => {
-          newWaterLevel = res;
-          if (unitName === 'mASD') {
-            let minDatum: number;
-            apiService.convertFromMASD(id)
-              .then((res) => {
-                minDatum = res;
-                if (minDatum > newWaterLevel) {
-                  newWaterLevel = minDatum - newWaterLevel;
-                } else {
-                  newWaterLevel = newWaterLevel - minDatum;
-                }
-              });
+      apiService.getLastestReading(measureID).then((res) => {
+        newWaterLevel = res;
+        if (unitName === 'mASD') {
+          let minDatum: number;
+          apiService.convertFromMASD(id).then((res) => {
+            minDatum = res;
+            if (minDatum > newWaterLevel) {
+              newWaterLevel = minDatum - newWaterLevel;
+            } else {
+              newWaterLevel = newWaterLevel - minDatum;
+            }
+          });
           setWaterLevel(newWaterLevel);
         }
       });
     }
   };
 
-  const toggleSave = () => {
+  const toggleSave = async () => {
     if (savedState) {
-      apiService.removeSaved(stationID)
+      await apiService
+        .removeSaved({ stationID })
         .then((res) => setSavedState(false));
+      handleClick();
       // apiService.removeSaved({ stationID });
       // setSavedState(false);
     } else {
-      apiService.addSaved({ stationID, qualifier, unitName })
+      await apiService
+        .addSaved({ stationID, qualifier, unitName })
         .then((res) => setSavedState(true));
+      handleClick();
     }
   };
 

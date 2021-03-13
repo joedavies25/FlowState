@@ -8,6 +8,12 @@ const PORT = 3001;
 
 app.use(cors());
 app.use(express.json());
+app.use((req, res, next) => {
+  console.log(req.url);
+  console.log(req.method);
+  console.log(req.body);
+  next();
+});
 app.use(router);
 
 (async () => {
