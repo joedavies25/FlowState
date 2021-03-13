@@ -4,7 +4,7 @@ import LottieView from 'lottie-react-native';
 
 import spinnerFile from '../assets/spinner.json';
 
-const Spinner = () => {
+const Spinner: React.FC = () => {
   const loaderAnimation = useRef();
 
   useEffect(() => {

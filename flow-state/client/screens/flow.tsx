@@ -2,35 +2,54 @@ import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import Measure from '../components/measure';
 import apiService from '../apiservice';
+import { iMeasure } from '../interface';
+import { FlatList } from 'react-native-gesture-handler';
 
-const Flow = ({ route }) => {
-  const [saved, setSaved] = useState([]);
+interface NavigationProps {
+  route: any
+}
+
+const Flow: React.FC<NavigationProps> = ({ route }) => {
+  const [saved, setSaved] = useState<iMeasure[]>([]);
+  // const [likedMeasures, setLikedMeasures] = useState<SavedMeasure[]>([]);
+  const measures: iMeasure[] = route.params.measures;
 
   useEffect(() => {
-    apiService.getSaved(setSaved);
+    apiService.getSaved()
+      .then((res) => {
+        res.map((measure: iMeasure) => {
+          measures.forEach(el => {
+            if (el.stationID === measure.stationID) {
+              el.saved = true;
+            } else {
+              el.saved = false;
+            };
+
+          })
+        });
+        setSaved(measures);
+      });
   }, []);
 
-  const measures = route.params.measures;
   return (
     <View>
-      {measures.map((measure, idx) => {
-        for (let save in saved) {
-          if (save.stationID === measure.stationID) {
-            measure.saved = true;
-          } else {
-            measure.saved = false;
-          }
-        }
-        return (
+      {
+        saved.length > 0
+        ? 
+        <FlatList 
+        data={saved}
+        renderItem={data => (
           <Measure
-            key={idx}
-            qualifier={measure.qualifier}
-            stationID={measure.stationID}
-            unitName={measure.unitName}
-            saved={measure.saved}
+            key={data.index}
+            qualifier={data.item.qualifier}
+            stationID={data.item.stationID}
+            unitName={data.item.unitName}
+            saved={data.item.saved} //TODO: call Andrew!
           />
-        );
-      })}
+        )}
+      />
+      : <View></View>
+      }
     </View>
   );
 };

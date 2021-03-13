@@ -4,8 +4,7 @@ import Saved from '../screens/saved';
 
 const Stack = createStackNavigator();
 
-const SavedStack = () => {
-  return (
+const SavedStack: React.FC = () => (
     <Stack.Navigator>
       <Stack.Screen
         name="Saved"
@@ -17,6 +16,5 @@ const SavedStack = () => {
       />
     </Stack.Navigator>
   );
-};
 
 export default SavedStack;
