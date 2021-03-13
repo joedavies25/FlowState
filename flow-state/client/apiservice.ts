@@ -25,7 +25,11 @@ function getSaved(): Promise<iMeasure[]> {
 //   hookFunc(result);
 // };
 
-function addSaved(measure: {stationID: string, qualifier: string, unitName: string}): Promise<string> {
+function addSaved(measure: {
+  stationID: string;
+  qualifier: string;
+  unitName: string;
+}): Promise<string> {
   return fetch(`${BASE_URL}/saved`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -44,7 +48,7 @@ function addSaved(measure: {stationID: string, qualifier: string, unitName: stri
 //     .catch((err) => console.log(err));
 // };
 
-function removeSaved(id: string): Promise<string> {
+function removeSaved(id: any): Promise<any> {
   return fetch(`${BASE_URL}/removeSaved`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -109,4 +113,12 @@ function convertFromMASD(id: string): Promise<number> {
 //     .catch((err) => console.log(err));
 // };
 
-export default { getStations, getSaved, getMeasureInfo, getLastestReading, convertFromMASD, removeSaved, addSaved };
+export default {
+  getStations,
+  getSaved,
+  getMeasureInfo,
+  getLastestReading,
+  convertFromMASD,
+  removeSaved,
+  addSaved,
+};

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import IMeasure from '../interfaces/measure.interfaces';
+import measureSchema from '../model/measureSchema';
 import Measure from '../model/measureSchema';
 
 const getMeasures = async (_: Request, res: Response): Promise<void> => {
@@ -14,9 +15,13 @@ const getMeasures = async (_: Request, res: Response): Promise<void> => {
 
 const saveMeasure = async (req: Request, res: Response): Promise<void> => {
   try {
-    await Measure.create(req.body);
+    const { stationID, qualifier, unitName } = req.body;
+    const measure: IMeasure[] = await Measure.find({ stationID });
+    if (measure.length === 0) {
+      await Measure.create({ stationID, qualifier, unitName });
+    }
     res.status(201);
-    res.send('Created ' + req.body.stationID);
+    res.send('Created ' + stationID);
   } catch (err) {
     handleError(err, res);
   }
