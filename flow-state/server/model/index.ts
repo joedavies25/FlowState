@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const uri = 'mongodb://localhost:27017/flow-state';
-exports.connection = mongoose.connect(uri, {
+mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+export default mongoose;
