@@ -4,42 +4,61 @@ import Spinner from '../animations/spinner';
 import apiService from '../apiservice';
 import { AntDesign } from '@expo/vector-icons';
 
-const Measure = ({ stationID, qualifier, unitName, saved }) => {
-  const [waterLevel, setWaterLevel] = useState([]);
-  const [measureInfo, setMeasureInfo] = useState({});
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [savedState, setSavedState] = useState(saved);
+interface MeasureProps {
+  stationID: string;
+  qualifier: string;
+  unitName: string;
+  saved: boolean
+}
+
+const Measure: React.FC<MeasureProps> = ({ stationID, qualifier, unitName, saved }) => {
+  const [waterLevel, setWaterLevel] = useState<number>(0);
+  const [measureInfo, setMeasureInfo] = useState<string>('');
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [savedState, setSavedState] = useState<boolean>(saved);
 
   const measureID = stationID.slice(60);
   const id = measureID.split('-')[0];
 
   const fetchMeasureInfo = async () => {
-    const result = await apiService.getMeasureInfo(stationID);
-    setMeasureInfo(result);
+    apiService.getMeasureInfo(stationID)
+      .then((res) => {
+        setMeasureInfo(res);
+      })
   };
 
   const getWaterLevel = async () => {
+    let newWaterLevel: number;
     if (unitName !== 'm3/s') {
-      let newWaterLevel = await apiService.getLastestReading(measureID);
-      if (unitName === 'mASD') {
-        const minDatum = await apiService.convertFromMASD(id);
-        if (minDatum > newWaterLevel) {
-          newWaterLevel = minDatum - newWaterLevel;
-        } else {
-          newWaterLevel = newWaterLevel - minDatum;
+      apiService.getLastestReading(measureID)
+        .then((res) => {
+          newWaterLevel = res;
+          if (unitName === 'mASD') {
+            let minDatum: number;
+            apiService.convertFromMASD(id)
+              .then((res) => {
+                minDatum = res;
+                if (minDatum > newWaterLevel) {
+                  newWaterLevel = minDatum - newWaterLevel;
+                } else {
+                  newWaterLevel = newWaterLevel - minDatum;
+                }
+              });
+          setWaterLevel(newWaterLevel);
         }
-      }
-      setWaterLevel(newWaterLevel);
+      });
     }
   };
 
   const toggleSave = () => {
     if (savedState) {
-      apiService.removeSaved({ stationID });
-      setSavedState(false);
+      apiService.removeSaved(stationID)
+        .then((res) => setSavedState(false));
+      // apiService.removeSaved({ stationID });
+      // setSavedState(false);
     } else {
-      apiService.addSaved({ stationID, qualifier, unitName });
-      setSavedState(true);
+      apiService.addSaved({ stationID, qualifier, unitName })
+        .then((res) => setSavedState(true));
     }
   };
 
@@ -55,7 +74,7 @@ const Measure = ({ stationID, qualifier, unitName, saved }) => {
   let render = isLoaded ? (
     <View style={styles.container}>
       <Text style={styles.text}>{waterLevel.toFixed(3)}m</Text>
-      <Text style={styles.text}>{measureInfo.items.label.split('-')[0]}</Text>
+      <Text style={styles.text}>{measureInfo}</Text>
       <Text style={styles.text}>{qualifier}</Text>
       <AntDesign size={30} name={iconName} color="white" onPress={toggleSave} />
     </View>

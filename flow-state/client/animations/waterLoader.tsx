@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import LottieView from 'lottie-react-native';
 import waterLoader from '../assets/water-loader.json';
 
-const LoadingScreen = () => {
+const LoadingScreen: React.FC = () => {
   const waterLoaderAnimation = useRef(null);
 
   return (
