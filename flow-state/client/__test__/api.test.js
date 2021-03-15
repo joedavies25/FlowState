@@ -23,7 +23,7 @@ describe('testing api', () => {
 
     //assert on the response
     const res = await apiservice.getStations();
-    console.log('RES DATA', res);
+    // console.log('RES DATA', res);
     expect(res).toEqual([{
       "measures": [
           {
@@ -40,7 +40,7 @@ describe('testing api', () => {
   }])
 
     //assert on the times called and arguments given to fetch
-    expect(fetch.mock.calls.length).toEqual(1)
-    // expect(fetch.mock.calls[0][0]).toEqual('https://google.com')
+    expect(fetch.mock.calls.length).toEqual(1);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
   })
 })
