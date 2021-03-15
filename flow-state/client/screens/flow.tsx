@@ -60,7 +60,7 @@ const Flow: React.FC<NavigationProps> = ({ route, navigation }) => {
 
   return (
     <View>
-      {saved.length > 0 ? (
+      {saved.length > 0 && (
         <FlatList
           data={saved}
           renderItem={(data) => (
@@ -74,8 +74,6 @@ const Flow: React.FC<NavigationProps> = ({ route, navigation }) => {
             />
           )}
         />
-      ) : (
-        <View></View>
       )}
     </View>
   );

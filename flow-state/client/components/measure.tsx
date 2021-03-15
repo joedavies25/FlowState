@@ -22,7 +22,7 @@ const Measure: React.FC<MeasureProps> = ({
   const [waterLevel, setWaterLevel] = useState<number>(0);
   const [measureInfo, setMeasureInfo] = useState<string>('');
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [savedState, setSavedState] = useState<boolean>(saved);
+  const [isSaved, setSavedState] = useState<boolean>(saved);
 
   useEffect(() => {
     setSavedState(saved);
@@ -59,7 +59,7 @@ const Measure: React.FC<MeasureProps> = ({
   };
 
   const toggleSave = async () => {
-    if (savedState) {
+    if (isSaved) {
       await apiService
         .removeSaved({ stationID })
         .then((res) => setSavedState(false));
@@ -74,7 +74,7 @@ const Measure: React.FC<MeasureProps> = ({
     }
   };
 
-  const iconName = savedState ? 'checkcircle' : 'checkcircleo';
+  const iconName = isSaved ? 'checkcircle' : 'checkcircleo';
 
   useEffect(() => {
     getWaterLevel()
