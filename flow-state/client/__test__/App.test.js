@@ -34,8 +34,8 @@ fetchMock.mockIf(BASE_URL, req => {
 })
 
 describe('<App />', () => {
-  it('has 1 child', async () => {
-    const tree = await renderer.create(<App />).toJSON();
+  it('has 1 child', () => {
+    const tree = renderer.create(<App />).toJSON();
     expect(tree.children.length).toBe(2);
   });
 });
