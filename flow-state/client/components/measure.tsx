@@ -32,7 +32,7 @@ const Measure: React.FC<MeasureProps> = ({
   const id = measureID.split('-')[0];
 
   const fetchMeasureInfo = async () => {
-    apiService.getMeasureInfo(stationID).then((res) => {
+    return apiService.getMeasureInfo(stationID).then((res) => {
       setMeasureInfo(res);
     });
   };
@@ -58,14 +58,12 @@ const Measure: React.FC<MeasureProps> = ({
     }
   };
 
-  const toggleSave = async () => {
-    if (isSaved) {
+  const toggleSave = async (saved: boolean) => {
+    if (saved) {
       await apiService
         .removeSaved({ stationID })
         .then((res) => setSavedState(false));
       handleClick();
-      // apiService.removeSaved({ stationID });
-      // setSavedState(false);
     } else {
       await apiService
         .addSaved({ stationID, qualifier, unitName })
@@ -79,7 +77,9 @@ const Measure: React.FC<MeasureProps> = ({
   useEffect(() => {
     getWaterLevel()
       .then(() => fetchMeasureInfo())
-      .then((res) => setIsLoaded(true))
+      .then((res) => {
+        setIsLoaded(true);
+      })
       .catch((err) => console.log(err));
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
@@ -88,7 +88,13 @@ const Measure: React.FC<MeasureProps> = ({
       <Text style={styles.text}>{waterLevel.toFixed(3)}m</Text>
       <Text style={styles.text}>{measureInfo}</Text>
       <Text style={styles.text}>{qualifier}</Text>
-      <AntDesign size={30} name={iconName} color="white" onPress={toggleSave} />
+      <AntDesign
+        size={30}
+        name={iconName}
+        testID={'button'}
+        color="white"
+        onPress={() => toggleSave(isSaved)}
+      />
     </View>
   ) : (
     <View style={styles.spinner}>
