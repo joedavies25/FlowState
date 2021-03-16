@@ -36,9 +36,10 @@ fetchMock.mockIf(BASE_URL, (req) => {
   }
 });
 
-describe.skip('<App />', () => {
+describe('<App />', () => {
   it('has 1 child', () => {
     const tree = renderer.create(<App />).toJSON();
+    // console.log('App component', tree);
     expect(tree.children.length).toBe(2);
   });
 });
