@@ -17,11 +17,15 @@ const saveMeasure = async (req: Request, res: Response): Promise<void> => {
   try {
     const { stationID, qualifier, unitName } = req.body;
     const measure: IMeasure[] = await Measure.find({ stationID });
+    console.log(measure);
     if (measure.length === 0) {
       await Measure.create({ stationID, qualifier, unitName });
+      console.log('created new', stationID);   
+      res.status(201);
+      res.send('Created ' + stationID);
+    } else {
+      handleError('Measure already saved', res);
     }
-    res.status(201);
-    res.send('Created ' + stationID);
   } catch (err) {
     handleError(err, res);
   }

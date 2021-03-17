@@ -4,7 +4,7 @@ import stationController from './controller/station.controller';
 import measureController from './controller/measure.controller';
 
 router.get('/stations', stationController.getStations);
-router.post('/stations', stationController.postStation);
+// router.post('/stations', stationController.postStation);
 
 router.get('/saved', measureController.getMeasures);
 router.post('/saved', measureController.saveMeasure);

@@ -12,15 +12,15 @@ const getStations = async (_: Request, res: Response): Promise<void> => {
   }
 };
 
-const postStation = async (req: Request, res: Response): Promise<void> => {
-  try {
-    await Station.create(req.body);
-    res.status(201);
-    res.send('Created ' + req.body.stationID);
-  } catch (err) {
-    handleError(err, res);
-  }
-};
+// const postStation = async (req: Request, res: Response): Promise<void> => {
+//   try {
+//     await Station.create(req.body);
+//     res.status(201);
+//     res.send('Created ' + req.body.stationID);
+//   } catch (err) {
+//     handleError(err, res);
+//   }
+// };
 
 const handleError = (err: string, res: Response): void => {
   console.log(err);
@@ -29,6 +29,6 @@ const handleError = (err: string, res: Response): void => {
 };
 
 export default {
-  getStations,
-  postStation,
+  getStations
+  // postStation,
 };
