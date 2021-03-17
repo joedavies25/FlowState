@@ -1,11 +1,7 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import Map from '../screens/map';
 import apiService from '../apiservice';
-import SplashScreen from '../animations/waterLoader';
-import MapView from 'react-native-map-clustering';
-import { View, Text } from 'react-native';
-import { act, screen, fireEvent, render } from '@testing-library/react-native';
+import { act, render } from '@testing-library/react-native';
 
 jest.useFakeTimers();
 
@@ -91,5 +87,17 @@ describe('Map screen', () => {
     // component.debug();
     // console.log('found markers', component.root.findAllByProps({testID: 'marker'}).length);
   });
+
+  it('', async () => {
+    const promise = Promise.resolve([]);
+    apiService.getStations.mockResolvedValue(promise);
+    const component = render(<Map />);
+    await act(() => promise);
+    expect(apiService.getStations).toHaveBeenCalled();
+    // expect(component.getAllByTestId('marker').length).toBe(0);
+    // console.log(component.getByTestId('map'));
+    // component.debug();
+    // expect(component.root.findByProps({testID: 'marker'})).toBeFalsy();
+  })
 
 })
