@@ -1,11 +1,22 @@
 # Flow State
-
-<div align='center'>Flow state is an app designed for those who love watersports and need an easy, real time display of the waterlevels in the UK . Flow state now allows you to save your most frequently visited locations so that you can quickly gauge the waterlevels instead of searching for them on the map.
-</div>
+Flow state is an app designed for those who love watersports and need an easy, real time display of the waterlevels in the UK . Flow state now allows you to save your most frequently visited locations so that you can quickly gauge the waterlevels instead of searching for them on the map.
 
 <p align='center'>
   <img width='50%' src='./Images/map.png'><img width='50%' src='./Images/saved.png'>
 </p>
+
+## Video
+here's a short [demo](https://www.youtube.com/watch?v=oXYnGpOsYNw)!
+
+## Tech Stack
+- React Native
+- TypeScript
+- Express
+- Mongoose
+- Mongodb
+- Expo
+- Jest
+
 ## Getting Started
 
 In order to work on Flow State you will need a couple of things:
