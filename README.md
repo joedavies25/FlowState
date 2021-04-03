@@ -4,7 +4,7 @@
 </div>
 
 <p align='center'>
-  <img width='50%' src='./images/map.png'><img width='50%' src='./images/saved.png'>
+  <img width='50%' src='./Images/map.png'><img width='50%' src='./Images/saved.png'>
 </p>
 ## Getting Started
 
