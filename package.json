@@ -1,0 +1,23 @@
+{
+  "name": "flowstate",
+  "version": "1.0.0",
+  "description": "Flow state is an app designed for those who love watersports and need an easy, real time display of the waterlevels in the UK . Flow state now allows you to save your most frequently visited locations so that you can quickly gauge the waterlevels instead of searching for them on the map.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "cd client && npm install && cd ../ && cd server && npm install",
+    "scraper": "cd server && npm run scraper",
+    "start-server": "cd server && npm start",
+    "start-client": "cd client && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joedavies25/FlowState.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joedavies25/FlowState/issues"
+  },
+  "homepage": "https://github.com/joedavies25/FlowState#readme"
+}
