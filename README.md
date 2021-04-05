@@ -1,4 +1,4 @@
-<img src='Images/banner.png'>
+# Flow State
 
 Flow state is an app designed for those who love watersports and need an easy, real time display of the waterlevels in the UK . Flow state now allows you to save your most frequently visited locations so that you can quickly gauge the waterlevels instead of searching for them on the map.
 
