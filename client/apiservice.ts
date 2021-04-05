@@ -1,7 +1,5 @@
 import { iStation, iMeasure } from './interface';
-// import dotenv from 'dotenv';
 
-// dotenv.config();
 const BASE_URL = process.env.EXPO_BASE_URL;
 
 function getStations(): Promise<iStation[]> {

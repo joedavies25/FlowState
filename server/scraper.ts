@@ -44,8 +44,11 @@ const scraper = async () => {
   try {
     await connection;
     console.log('connected.database');
-    await scraper();
-    console.log('done');
+    if (await Station.countDocuments()) {
+      console.log('database is already populated');
+    } else {
+      await scraper().then(() => console.log('done'));
+    }
   } catch (err) {
     console.log(err);
   }
