@@ -6,15 +6,14 @@ Flow state is an app designed for those who love watersports and need an easy, r
 </p>
 
 ## Video
-here's a short [demo](https://www.youtube.com/watch?v=oXYnGpOsYNw)!
+Here's a short [demo](https://www.youtube.com/watch?v=oXYnGpOsYNw)!
 
 ## Tech Stack
-- React Native
+- React Native (expo)
 - TypeScript
 - Express
 - Mongoose
 - Mongodb
-- Expo
 - Jest
 
 ## Getting Started
@@ -33,33 +32,35 @@ In order to work on Flow State you will need a couple of things:
 
 ## Installation
 
-1. Clone this repo
-
-   `git clone 'https://github.com/joedavies25/FlowState.git'`
+1. Fork and clone this repo
 
 2. Install dependancies
 
-   `cd client`
+   `npm run install`
+   
+3. Start mongodb service
+  
+  `sudo service mongodb start`
+  or
+  `brew services start mongodb-community`
+  
+4. Run scraper
 
-   `npm install`
-
-   `cd ../`
-
-   `cd server`
-
-   `npm install`
-
-3. Scrape static data
-
-   `npm run scraper` (make sure your mongodb is running)
+   `npm run scraper`
 
 4. Start server
 
-   `npm start`
+   `npm start-server`
 
 5. start client
 
-   `npm start`
+   `npm start-client`
 
 6. Connect to expo with ios emulator or with an ios phone and the [Expo App](https://apps.apple.com/gb/app/expo-go/id982107779)
+
+
+## Observations
+In the future I plan to add functionality for **separate users** to have their own unique saved locations.
+I'm also planning to increase the amount of information that the user can access in such a way as **not to overwhelm** them.
+
 
