@@ -1,6 +1,6 @@
 # Flow State
 
-Flow state is an app designed for those who love watersports and need an easy, real time display of the waterlevels in the UK. Flow state now allows you to save your most frequently visited locations so that you can quickly gauge the waterlevels instead of searching for them on the map.
+Flow state is an app designed for those who love watersports and need an easy, real-time display of the water levels in the UK. Flow state now allows you to save your most frequently visited locations so that you can quickly gauge the water levels instead of searching for them on the map.
 
 <p align='center'>
   <img width='50%' src='./Images/map.png'><img width='50%' src='./Images/saved.png'>
@@ -59,7 +59,7 @@ In order to work on Flow State you will need a couple of things:
 6. Connect to expo with ios emulator or with an ios phone and the [Expo App](https://apps.apple.com/gb/app/expo-go/id982107779)
 
 ## Observations 🤔
-In the future I plan to add functionality for **separate users** to have their own unique saved locations.
+In the future, I plan to add functionality for **separate users** to have their own unique saved locations.
 I'm also planning to increase the amount of information that the user can access in such a way as **not to overwhelm** them.
 
 ## Contributors ✨
